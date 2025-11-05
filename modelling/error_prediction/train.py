@@ -61,7 +61,7 @@ def main(config_path: str = "../../config/error_prediction_config.yaml"):
     logging.info("Training completed.")
 
     # --- Evaluate model ---
-    y_true, y_pred = evaluate_model(model, test_loader, cat_cardinalities, device, target_mapping, cfg['target']['label_mapping'])
+    y_true, y_pred = evaluate_model(model, test_loader, cat_cardinalities, device, cfg['target']['label_mapping'])
     one_vs_all_accuracy(y_true, y_pred, target_label='correct', class_lookup=cfg['target']['label_mapping'])
     logging.info("Evaluation completed.")
 
@@ -71,7 +71,7 @@ def main(config_path: str = "../../config/error_prediction_config.yaml"):
         last_seq, numeric_features, categorical_features, cat_encoders, cat_cardinalities,
         seq_len=cfg['data']['seq_len'], device=device
     )
-    predicted_label = predict_next(model, X_num_tensor, X_cat_tensor, cat_mask_tensor, target_mapping)
+    predicted_label = predict_next(model, X_num_tensor, X_cat_tensor, cat_mask_tensor, cfg['target']['label_mapping'])
     logging.info(f"Example next-step prediction: {predicted_label}")
 
 

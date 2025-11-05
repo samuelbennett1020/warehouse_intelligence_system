@@ -87,7 +87,7 @@ def predict_next(model: torch.nn.Module,
     with torch.no_grad():
         preds = model(X_num_tensor, X_cat_tensor, cat_mask_tensor)
         predicted_idx = preds.argmax(1).item()
-        predicted_label = list(target_mapping.keys())[list(target_mapping.values()).index(predicted_idx)]
+        predicted_label = list(target_mapping.keys())[list(target_mapping.values()).index(predicted_idx - 1)]
 
     if should_log:
         logging.info(f"Predicted next label: {predicted_label}")

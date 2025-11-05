@@ -122,7 +122,7 @@ if __name__ == "__main__":
     # --- Run batch inference and save to CSV ---
     output_csv_path = "predictions.csv"
     predictions_df = batch_inference(df, model, numeric_features, categorical_features,
-                                     cat_encoders, cat_cardinalities, target_mapping,
+                                     cat_encoders, cat_cardinalities, cfg['target']['label_mapping'],
                                      seq_len=cfg['data']['seq_len'],
                                      location_col=cfg['data'].get('location_col', 'location'),
                                      time_column=cfg['data'].get('time_column', 'timestep'),

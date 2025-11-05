@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def evaluate_model(model: torch.nn.Module, test_loader: 'torch.utils.data.DataLoader',
-                   cat_cardinalities: List[int], device: torch.device, target_mapping: Dict[str, int], label_map: Dict[str, int],
+                   cat_cardinalities: List[int], device: torch.device, label_map: Dict[str, int],
                   ) -> Tuple[List[int], List[int]]:
     """
     Evaluate the model on a test set and plot the confusion matrix.
