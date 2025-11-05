@@ -287,7 +287,6 @@ def convert_to_categorical(subset_df: pd.DataFrame) -> pd.DataFrame:
         col_clean = col.lower().replace(" ", "_")
         if col_clean in subset_df.columns:
             subset_df[col_clean] = subset_df[col_clean].astype("category")
-
     return subset_df
 
 

@@ -7,13 +7,13 @@ import random
 import torch
 
 
-def load_and_preprocess(csv_path: str, target_col: str,
+def load_and_preprocess(parquet_path: str, target_col: str,
                         location_col: str = "location") -> Tuple[pd.DataFrame, list, list, dict, dict, list]:
     """
     Load dataset and automatically infer numeric/categorical features, encode target, scale numeric features.
 
     Args:
-        csv_path: Path to the CSV/Parquet file.
+        parquet_path: Path to the CSV/Parquet file.
         target_col: Name of target column.
         location_col: Name of the location column.
 
@@ -26,7 +26,7 @@ def load_and_preprocess(csv_path: str, target_col: str,
         - target_mapping
         - cat_cardinalities
     """
-    df = pd.read_parquet(csv_path)
+    df = pd.read_parquet(parquet_path)
 
     # Automatically detect numeric and categorical columns
     numeric_features = [c for c in df.select_dtypes(include=['float64', 'int64']).columns
@@ -37,10 +37,14 @@ def load_and_preprocess(csv_path: str, target_col: str,
     # Fill missing categorical values and factorize
     cat_encoders = {}
     for col in categorical_features:
-        df[col] = df[col].astype(str).fillna('<UNK>')
+        df[col] = df[col].astype(str)
         codes, uniques = pd.factorize(df[col])
+
+        # Shift by +1 so 0 = reserved for <UNK>
         df[col] = codes + 1
-        cat_encoders[col] = {val: i + 1 for i, val in enumerate(uniques)}
+
+        # Store encoder with <UNK> explicitly at index 0
+        cat_encoders[col] = {'<UNK>': 0, **{val: i + 1 for i, val in enumerate(uniques)}}
 
     # Encode target
     codes, uniques = pd.factorize(df[target_col])
@@ -53,9 +57,7 @@ def load_and_preprocess(csv_path: str, target_col: str,
 
     # Embedding cardinalities
     cat_cardinalities = [df[c].max() + 1 for c in categorical_features]
-
     return df, numeric_features, categorical_features, cat_encoders, target_mapping, cat_cardinalities
-
 
 
 def train_val_test_split_by_location(df: pd.DataFrame, location_col: str = 'location',

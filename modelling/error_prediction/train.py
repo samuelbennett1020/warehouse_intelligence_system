@@ -61,7 +61,7 @@ def main(config_path: str = "../../config/error_prediction_config.yaml"):
     logging.info("Training completed.")
 
     # --- Evaluate model ---
-    y_true, y_pred = evaluate_model(model, test_loader, cat_cardinalities, device, target_mapping)
+    y_true, y_pred = evaluate_model(model, test_loader, cat_cardinalities, device, target_mapping, cfg['target']['label_mapping'])
     one_vs_all_accuracy(y_true, y_pred, target_label='correct', class_lookup=cfg['target']['label_mapping'])
     logging.info("Evaluation completed.")
 

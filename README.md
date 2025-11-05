@@ -49,7 +49,7 @@ project-root/
 Clone the repository
 
 ```console
-git clone dexory_wis
+git clone warehouse_intelligence_system
 cd dexory_wis
 ```
 
@@ -132,7 +132,7 @@ stored together, picked together (inferred), or misplaced near each other
 - This will produce an associated graph of misplaced items, and produce some statistics for different relationships
 - An example of this graph is kept in the docs folder, and insights are found in docs/barcode_analysis_insights.md
 
-### Task 4 B: Time Series Anomaly Detection
+### Task 4 C: Time Series Anomaly Detection
 - **Task**: Item Co-location &amp; Pick-Path Analysis
 - Code for this task is found in modelling/barcode_analysis
 - To run the model, python model.py. This will produce a .npz file containing the model parameters

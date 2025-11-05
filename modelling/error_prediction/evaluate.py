@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def evaluate_model(model: torch.nn.Module, test_loader: 'torch.utils.data.DataLoader',
-                   cat_cardinalities: List[int], device: torch.device, target_mapping: Dict[str, int]
+                   cat_cardinalities: List[int], device: torch.device, target_mapping: Dict[str, int], label_map: Dict[str, int],
                   ) -> Tuple[List[int], List[int]]:
     """
     Evaluate the model on a test set and plot the confusion matrix.
@@ -40,20 +40,21 @@ def evaluate_model(model: torch.nn.Module, test_loader: 'torch.utils.data.DataLo
 
     acc = accuracy_score(y_true, y_pred)
     logging.info(f"Final Test Accuracy: {acc:.2%}")
-    logging.info(f"Per-class metrics:\n{classification_report(y_true, y_pred, target_names=[str(k) for k in target_mapping.keys()])}")
+    logging.info(f"Per-class metrics:\n{classification_report(y_true, y_pred, target_names=list(label_map.keys()))}")
 
     # Confusion matrix
     cm = confusion_matrix(y_true, y_pred)
     plt.figure(figsize=(8,6))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
-                xticklabels=[str(k) for k in target_mapping.keys()],
-                yticklabels=[str(k) for k in target_mapping.keys()])
+                xticklabels=list(label_map.keys()),
+                yticklabels=list(label_map.keys()))
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.title('Confusion Matrix on Test Set')
     plt.show()
 
     return y_true, y_pred
+
 
 def one_vs_all_accuracy(y_true: List[int], y_pred: List[int], target_label: str, class_lookup: Dict[str, int]) -> float:
     """
@@ -73,4 +74,6 @@ def one_vs_all_accuracy(y_true: List[int], y_pred: List[int], target_label: str,
     y_pred_binary = (np.array(y_pred) == target_class).astype(int)
     accuracy = (y_true_binary == y_pred_binary).mean()
     logging.info(f"Accuracy for '{target_label}' vs all others: {accuracy:.2%}")
+    target_names = [target_label, f'not {target_label}']
+    logging.info(f"Per-class metrics:\n{classification_report(y_true_binary, y_pred_binary, target_names=target_names)}")
     return accuracy

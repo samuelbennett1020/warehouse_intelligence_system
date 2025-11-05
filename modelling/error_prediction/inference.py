@@ -56,7 +56,7 @@ def batch_inference(df: pd.DataFrame,
                     location_col: str = "location",
                     time_column: str = "timestep",
                     device: torch.device = torch.device("cpu"),
-                    output_path: str = None
+                    output_path: str = None\
                    ) -> pd.DataFrame:
     """
     Run inference for all locations in a DataFrame and optionally save predictions to CSV.

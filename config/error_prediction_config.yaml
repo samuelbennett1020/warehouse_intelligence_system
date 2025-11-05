@@ -41,9 +41,10 @@ training:
 target:
   column: "status"    # Target column
   label_mapping:
-    warning: 1
-    correct: 2
-    error: 3
+    warning: 0
+    correct: 1
+    error: 2
+    ignored: 3
     obstructed: 4
 
 # ===============================
