@@ -1,0 +1,54 @@
+# ===============================
+# DATA SETTINGS
+# ===============================
+data:
+  path: "../../data/processed_data/timeseries_data.parquet"  # Path to dataset
+  seq_len: 10         # Sliding window sequence length
+  batch_size: 32      # Batch size for training
+  location_col: "location"   # Column representing locations
+  time_column: "timestep"    # Column representing time steps
+
+# Optional: explicitly list features, or let pipeline auto-detect
+# numeric_features:
+#   - feature1
+#   - feature2
+# categorical_features:
+#   - cat_feature1
+#   - cat_feature2
+
+# ===============================
+# MODEL SETTINGS
+# ===============================
+model:
+  embedding_dim: 8    # Embedding dimension for categorical features
+  hidden_dim: 64      # Hidden size for LSTM
+  n_layers: 1         # Number of LSTM layers
+  dropout: 0.0        # Dropout (optional)
+
+# ===============================
+# TRAINING SETTINGS
+# ===============================
+training:
+  lr: 0.001           # Learning rate
+  epochs: 50          # Max epochs
+  patience: 3         # Early stopping patience
+  checkpoint_path: "best_model.pth"  # Where to save/load best model
+  use_tensorboard: True
+
+# ===============================
+# TARGET SETTINGS
+# ===============================
+target:
+  column: "status"    # Target column
+  label_mapping:
+    warning: 1
+    correct: 2
+    error: 3
+    obstructed: 4
+
+# ===============================
+# GENERAL SETTINGS
+# ===============================
+general:
+  seed: 42           # Random seed for reproducibility
+  device: "cuda"     # "cuda" or "cpu"

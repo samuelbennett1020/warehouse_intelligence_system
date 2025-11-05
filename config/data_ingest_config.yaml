@@ -1,0 +1,88 @@
+# =========================================================
+# DATA PATH SETTINGS
+# =========================================================
+data_path: "../data/raw_data"           # Directory containing raw CSV and JSON scan data
+output_dir: "../data/processed_data"         # Directory where processed CSVs will be written
+
+# =========================================================
+# OUTPUT Parquet SETTINGS
+# =========================================================
+warehouse_csv_name: "warehouse_layout.csv"   # CSV filename for warehouse layout
+subset_csv_name: "subset_merged_timesteps.csv"  # CSV for intermediate merged subset
+final_csv_name: "timeseries_data.parquet"       # parquet for final processed timeseries data
+
+write_subset_csv: true      # Whether to write the subset CSV
+ask_before_overwrite: true  # Prompt user before overwriting existing CSVs
+
+# =========================================================
+# CATEGORICAL / TEXT PROCESSING
+# =========================================================
+columns_to_categorical:
+  - front      # Rack face front column
+  - Occupancy  # Occupancy value column
+  - Expected   # Expected items column
+  - Scanned    # Scanned items column
+  - Status     # Status column
+  - Client     # Client name column
+
+columns_to_fuzzy_match:
+  - Sub Status  # Columns to apply fuzzy text grouping for similar entries
+
+# =========================================================
+# DYNAMIC COLUMNS FOR MERGE
+# =========================================================
+# Columns that vary per timestep scan and should be merged
+dynamic_columns:
+  - Aisle
+  - Occupancy
+  - Expected
+  - Scanned
+  - Status
+  - Sub Status
+  - Result Age
+  - Client
+  - Barcode
+  - Barcode actually scanned at
+  - Barcode should be at
+
+# Columns extracted from warehouse JSON
+warehouse_headers:
+  - Location
+  - id
+  - name
+  - type
+  - front
+  - column
+  - shelf
+  - min_x
+  - min_y
+  - min_z
+  - max_x
+  - max_y
+  - max_z
+
+# =========================================================
+# SCAN DATA SETTINGS
+# =========================================================
+# List of days of the month to merge for timeseries
+dates_to_merge:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+
+scan_month: 6   # Month of scan data
+scan_year: 2024 # Year of scan data
+fuzzy_match_threshold: 85  # Similarity threshold for fuzzy text grouping (0-100)
+
+# =========================================================
+# LOGGING
+# =========================================================
+disable_logging: false  # Set true to disable logging (e.g., during unit tests)

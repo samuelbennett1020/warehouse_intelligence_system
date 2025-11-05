@@ -1,0 +1,13 @@
+# Path to the warehouse PNG map
+warehouse_image: "../../docs/warehouse-map.png"
+data_path: "../../data/processed_data/timeseries_data.parquet"  # Path to dataset
+
+# HDBSCAN clustering parameters
+clustering:
+  min_cluster_size: 100
+  min_samples: 10
+
+# Highlight visualization
+highlight:
+  threshold: 0.9
+  default_class: "Correct"  # primary class to highlight if above threshold
