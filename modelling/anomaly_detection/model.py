@@ -118,28 +118,26 @@ def plot_anomalies(per_class_anomaly_scores: np.ndarray, per_class_anomalies: np
                    class_percentiles: Dict[str, int]) -> None:
     """
     Plot heatmaps of anomaly scores with anomaly markers, using different colormaps per status.
-
-    Args:
-        per_class_anomaly_scores (np.ndarray): Z-score anomaly scores.
-        per_class_anomalies (np.ndarray): Boolean array indicating anomalies.
-        aisles (np.ndarray): Array of aisle names.
-        timesteps (np.ndarray): Array of timesteps.
-        statuses (List[str]): status categories.
-        class_percentiles (Dict[str,int]): Percentile thresholds per status.
+    Only label aisles that have at least one anomaly.
     """
+
     colormaps: List[str] = ['Reds', 'Blues', 'Greens', 'Oranges', 'Purples', 'Greys']
     num_categories: int = len(statuses)
     num_cols: int = 2
     num_rows: int = int(np.ceil(num_categories / num_cols))
-    fig, axes = plt.subplots(num_rows, num_cols, figsize=(5 * num_cols, 4 * num_rows), sharey='row')
+    fig, axes = plt.subplots(num_rows, num_cols, figsize=(5 * num_cols, 4 * num_rows))
     axes = axes.flatten()
 
     for idx, status in enumerate(statuses):
         ax = axes[idx]
         cmap = colormaps[idx % len(colormaps)]
+
+        # Compute aisle labels: only show if there is any anomaly in that row for this status
+        y_labels = [aisles[i] if per_class_anomalies[i, :, idx].any() else '' for i in range(len(aisles))]
+
         sns.heatmap(per_class_anomaly_scores[:, :, idx],
                     xticklabels=timesteps,
-                    yticklabels=aisles,
+                    yticklabels=y_labels,
                     cmap=cmap,
                     cbar_kws={'label': 'Anomaly Score'}, ax=ax)
         ax.set_title(f'status: {status}, Threshold {class_percentiles.get(status, 99)}%')
@@ -151,9 +149,6 @@ def plot_anomalies(per_class_anomaly_scores: np.ndarray, per_class_anomalies: np
             for t in range(len(timesteps)):
                 if per_class_anomalies[i, t, idx]:
                     ax.scatter([t + 0.5], [i + 0.5], marker='x', c='black')
-
-    for j in range(idx + 1, len(axes)):
-        axes[j].axis('off')
 
     plt.tight_layout()
     plt.show()
