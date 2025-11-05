@@ -9,11 +9,12 @@ from modelling.error_prediction.model import LSTMClassifier
 from modelling.error_prediction.train_functions import train_model
 from modelling.error_prediction.evaluate import evaluate_model, one_vs_all_accuracy
 from modelling.error_prediction.predict import prepare_sequence, predict_next
-
-logging.basicConfig(level=logging.INFO)
+from modelling.error_prediction.utils import setup_logging
 
 
 def main(config_path: str = "../../config/error_prediction_config.yaml"):
+
+    setup_logging()
 
     # --- Load configuration ---
     with open(config_path) as f:
