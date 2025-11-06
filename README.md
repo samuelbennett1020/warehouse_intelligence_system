@@ -1,7 +1,7 @@
 # Warehouse Intelligence System Technical Assessment
 
 This repository contains my solution to the take-home technical assessment.
-The data engineering pipeline is contained in the preproccesing/ folder, whilst the subsequent modelling tasks are
+The data engineering pipeline is contained in the preprocessing/ folder, whilst the subsequent modelling tasks are
 each contained in individual directories within the modelling/ folder.
 There are supporting configuration, data, and documentation directories.
 
