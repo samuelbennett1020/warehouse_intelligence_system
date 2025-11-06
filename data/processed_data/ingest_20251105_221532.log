@@ -14,4 +14,3 @@
 2025-11-05 22:15:34,986 [INFO] Reading scan CSV for timestep 11: C:\source\warehouse_intelligence_system\data\raw_data\2024-06-21\results.csv
 2025-11-05 22:15:38,459 [INFO] Subset CSV written: C:\source\warehouse_intelligence_system\data\processed_data\subset_merged_timesteps.csv
 2025-11-05 22:15:39,781 [INFO] Final Parquet written: C:\source\warehouse_intelligence_system\data\processed_data\timeseries_data.parquet
-2025-11-05 22:15:39,781 [INFO] {'Correct': 0, 'Error': 1, 'Ignored': 2, 'Obstructed': 3, 'Warning': 4}
