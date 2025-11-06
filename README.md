@@ -71,7 +71,7 @@ pip install -r requirements.txt
 ## Running the Code
 
 - Each subtask can be run independently.
-- Rationale for design decisions are detailed within the documentation/presentation.pptx
+- Rationale for design decisions are detailed within the docs/write_up_slides.pdf
 - Parameters can be adjusted in the config/ .yaml files
 
 ### Task 1: Data Engineering Pipeline
@@ -112,7 +112,7 @@ given Location on the next day
 - An output test confusion matrix is kept in the docs folder
 
 
-### Task 4 A: Spatial Error Clustering
+### Task 4 i: Spatial Error Clustering
 - **Task**: Use the (x, y, z) coordinates of historical errors to
 automatically identify &quot;problem zones&quot; that may span multiple locations.
 - Code for this task is found in modelling/spatial_error_clustering, including
@@ -123,7 +123,7 @@ automatically identify &quot;problem zones&quot; that may span multiple location
 - To run, python main.py, this will produce a warehouse map showing the clusters
 - An output warehouse map is kept in the docs folder
 
-### Task 4 B: Item Co-location &amp; Pick-Path Analysis
+### Task 4 ii: Item Co-location &amp; Pick-Path Analysis
 - **Task**: Analyse the Barcode data. Use
 association graph analysis, or another method to find items that are frequently
 stored together, picked together (inferred), or misplaced near each other
@@ -132,7 +132,7 @@ stored together, picked together (inferred), or misplaced near each other
 - This will produce an associated graph of misplaced items, and produce some statistics for different relationships
 - An example of this graph is kept in the docs folder, and insights are found in docs/barcode_analysis_insights.md
 
-### Task 4 C: Time Series Anomaly Detection
+### Task 4 iii: Time Series Anomaly Detection
 - **Task**: Item Co-location &amp; Pick-Path Analysis
 - Code for this task is found in modelling/barcode_analysis
 - To run the model, python model.py. This will produce a .npz file containing the model parameters
