@@ -8,3 +8,4 @@ PyYAML==6.0.3
 scikit-learn==1.7.2
 seaborn==0.13.2
 networkx==3.5
+rapidfuzz==3.14.3

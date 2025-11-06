@@ -57,7 +57,7 @@ def plot_class_overlay(
 
     # Plot
     fig, ax = plt.subplots(figsize=(8, 6))
-    ax.imshow(img, extent=[0, x_max, 0, y_max + 5.], origin='upper', alpha=0.5)
+    ax.imshow(img, extent=[1., x_max, 0, y_max + 5.], origin='upper', alpha=0.5)
 
     # Background grey points
     ax.scatter(features['x'], features['y'], color='lightgrey', s=10, alpha=0.3)
