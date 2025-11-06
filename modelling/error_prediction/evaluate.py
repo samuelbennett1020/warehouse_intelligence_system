@@ -10,8 +10,8 @@ logging.basicConfig(level=logging.INFO)
 
 
 def evaluate_model(model: torch.nn.Module, test_loader: 'torch.utils.data.DataLoader',
-                   cat_cardinalities: List[int], device: torch.device, label_map: Dict[str, int],
-                  ) -> Tuple[List[int], List[int]]:
+                   cat_cardinalities: List[int], device: torch.device, label_map: Dict[str, int])\
+        -> Tuple[List[int], List[int]]:
     """
     Evaluate the model on a test set and plot the confusion matrix.
 
@@ -20,7 +20,7 @@ def evaluate_model(model: torch.nn.Module, test_loader: 'torch.utils.data.DataLo
         test_loader (DataLoader): DataLoader for test dataset.
         cat_cardinalities (List[int]): Cardinalities for categorical embeddings.
         device (torch.device): Device to run evaluation on.
-        target_mapping (Dict[str, int]): Mapping from target labels to numeric indices.
+        label_map (Dict[str, int]): Mapping from target labels to numeric indices.
 
     Returns:
         Tuple[List[int], List[int]]: y_true and y_pred lists.

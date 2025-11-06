@@ -1,12 +1,11 @@
 # Warehouse Intelligence System Technical Assessment
 
 This repository contains my solution to the take-home technical assessment.
-The Data Engineering pipeline is contained in the preproccesing folder, whilst the subsequent modelling tasks are
-each contained in individual directories within the modelling folder.
+The data engineering pipeline is contained in the preproccesing/ folder, whilst the subsequent modelling tasks are
+each contained in individual directories within the modelling/ folder.
 There are supporting configuration, data, and documentation directories.
 
 ## Project Overview
-
 
 This repository includes the data ingestion, configuration, modeling, and documentation components required 
 to reproduce the results.
@@ -50,7 +49,7 @@ Clone the repository
 
 ```console
 git clone warehouse_intelligence_system
-cd dexory_wis
+cd warehouse_intelligence_system
 ```
 
 
@@ -68,10 +67,12 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
+Should be compatible with any recent python version, i.e. 3.10+
+
 ## Running the Code
 
-- Each subtask can be run independently.
-- Rationale for design decisions are detailed within the docs/write_up_slides.pdf
+- Each subtask can be run independently
+- The write up is contained in  docs/write_up_slides.pdf. This contains rationale for design decisions
 - Parameters can be adjusted in the config/ .yaml files
 
 ### Task 1: Data Engineering Pipeline
@@ -105,7 +106,7 @@ given Location on the next day
   - Other functions for data processing, test/validation/train and evaluation
 - The config for the model, including hyperparameters, is config/error_prediction_config.yaml
 - A pretrained model and checkpoint is already contained within the folder, referenced by best_model.pth
-- To retrain, can delete this checkpoint
+- To retrain, delete this checkpoint
 - To train, python train.py. This will print some statistics and plot a confusion matrix
 - As the model trains, the performance is logged at info level
 - For an example of inference with a trained model (best_model.pth), run python inference.py
