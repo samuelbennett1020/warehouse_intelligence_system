@@ -74,6 +74,6 @@ def one_vs_all_accuracy(y_true: List[int], y_pred: List[int], target_label: str,
     y_pred_binary = (np.array(y_pred) == target_class).astype(int)
     accuracy = (y_true_binary == y_pred_binary).mean()
     logging.info(f"Accuracy for '{target_label}' vs all others: {accuracy:.2%}")
-    target_names = [target_label, f'not {target_label}']
+    target_names = [f'not {target_label}', target_label]
     logging.info(f"Per-class metrics:\n{classification_report(y_true_binary, y_pred_binary, target_names=target_names)}")
     return accuracy

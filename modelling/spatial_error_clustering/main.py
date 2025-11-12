@@ -124,22 +124,34 @@ def main(config_path: str = "../../config/clustering_config.yaml") -> None:
     )
 
     # Summarize clusters
-    summary = features.groupby('cluster')[class_counts.columns].mean()
-    summary['dominant_class'] = summary.idxmax(axis=1)
+    cluster_summary = features.groupby('cluster')[class_counts.columns].mean()
+    cluster_summary['dominant_class'] = cluster_summary.idxmax(axis=1)
     print("Cluster summaries:")
-    print(summary)
+    print(cluster_summary)
+
+    # Map cluster ID → dominant class
+    cluster_to_class = cluster_summary['dominant_class'].to_dict()
+    class_colors = {
+        'Error': 'red',
+        'Ignored': 'blue',
+        'Warning': 'orange',
+        'Obstructed': 'grey',
+        'Correct': None
+    }
+
+    # Create a column in features for the dominant class
+    features['dominant_class'] = features['cluster'].map(cluster_to_class)
+    features['color'] = features['dominant_class'].map(class_colors)
 
     # Visualization
     highlight_config = config.get("highlight", {})
-    threshold = highlight_config.get("threshold", 0.8)
     default_class = highlight_config.get("default_class", "Correct")
     image_path = get_warehouse_image(config)
 
     plot_class_overlay(
         features,
         image_path,
-        class_cols=[c for c in class_counts.columns],
-        threshold=threshold,
+        class_colors,
         default_class=default_class
     )
 
